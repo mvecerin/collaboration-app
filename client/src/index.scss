@@ -1,0 +1,16 @@
+//$dark: #222429;
+$light: #f8f8f8;
+//$gray: #5c6069;
+$primary: #024640;
+
+@import "~bootstrap/scss/bootstrap.scss";
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+
+.bg-light-gray {
+  color: $dark;
+  background-color: #ebe9e9;
+}
+.bg-primary {
+  color: $light;
+  background-color: $primary;
+}

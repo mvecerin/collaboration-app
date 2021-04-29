@@ -1,6 +1,8 @@
+import { NextFunction, Response } from "express";
+import { IRequestWithUser } from "../interfaces";
 const { verifyToken } = require("../utils/tokenUtil");
 
-module.exports = (req: any, res: any, next: any) => {
+module.exports = (req: IRequestWithUser, res: Response, next: NextFunction) => {
   let token = req.headers["token"];
 
   if (!token) {

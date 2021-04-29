@@ -13,16 +13,22 @@ const MessageSchema = new mongoose.Schema({
   },
   userId: {
     type: mongoose.Types.ObjectId,
+    ref: "User",
     required: true,
   },
   groupId: {
     type: mongoose.Types.ObjectId,
     required: true,
   },
-  unreadsIds: {
+  readIds: {
     type: [mongoose.Types.ObjectId],
     required: false,
   },
 });
 
-export default mongoose.model<IMessage>("Message", MessageSchema);
+export const deleteMessagesByGroup = (groupId: mongoose.Types.ObjectId) => {
+  return Message.deleteMany({ groupId }).exec();
+};
+
+const Message = mongoose.model<IMessage>("Message", MessageSchema);
+export default Message;

@@ -16,8 +16,8 @@
     "express": "^4.17.1",
     "helmet": "^4.4.1",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.11.18",
-    "socket.io": "^3.1.2"
+    "mongoose": "^5.12.5",
+    "socket.io": "^4.0.1"
   },
   "devDependencies": {
     "@types/express": "^4.17.11",

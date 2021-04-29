@@ -35,7 +35,7 @@ const GroupSchema = new mongoose.Schema({
   // },
 });
 
-export const updateGroup = (query: Object, update: Object) => {
+export const updateGroup = (query: object, update: object) => {
   return Group.findOneAndUpdate(query, update, {
     new: true,
     useFindAndModify: false,

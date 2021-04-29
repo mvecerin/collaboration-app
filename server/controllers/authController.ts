@@ -1,8 +1,13 @@
+import { NextFunction, Request, Response } from "express";
 import User from "../models/User";
 const bcrypt = require("bcrypt");
 const { createToken } = require("../utils/tokenUtil");
 
-module.exports.login = async (req: any, res: any, next: any) => {
+module.exports.signin = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     // Verify e-mail
     const { email, password } = req.body;
@@ -22,15 +27,16 @@ module.exports.login = async (req: any, res: any, next: any) => {
       });
     } else {
       // Create token
-      let { password, ...rest } = user.toObject();
-      const token = createToken(rest);
+      const dataForToken = (({ name, _id }) => ({ name, _id }))(user);
+      // let { password, __v, ...rest } = user.toObject();
+      const token = createToken(dataForToken);
       if (!token) {
         throw new Error("Token error");
       }
       res.json({
         success: true,
         token: token,
-        data: user.name,
+        data: dataForToken,
       });
     }
   } catch (e) {
@@ -38,7 +44,11 @@ module.exports.login = async (req: any, res: any, next: any) => {
   }
 };
 
-module.exports.signup = async (req: any, res: any, next: any) => {
+module.exports.signup = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     // Check if e-mail exists
     const { email } = req.body;

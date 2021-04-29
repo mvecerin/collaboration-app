@@ -1,12 +1,19 @@
 const ObjectId = require("mongoose").Types.ObjectId;
+import { NextFunction, Response } from "express";
+import { IRequestWithUser } from "../interfaces";
 import Message from "../models/Message";
+import { emitMessage } from "../utils/socket";
 const { addUnreads } = require("../controllers/groupController");
 
-module.exports.getMessages = async (req: any, res: any, next: any) => {
+module.exports.getMessages = async (
+  req: IRequestWithUser,
+  res: Response,
+  next: NextFunction
+) => {
   try {
-    let groupId = ObjectId(req.body._id);
+    let groupId = ObjectId(req.params.groupId);
     const query = { groupId };
-    const data = await Message.find(query).exec();
+    const data = await Message.find(query).populate("userId", "name").exec();
     if (!data) {
       throw new Error("Fetching failed");
     }
@@ -16,26 +23,34 @@ module.exports.getMessages = async (req: any, res: any, next: any) => {
   }
 };
 
-module.exports.addMessage = async (req: any, res: any, next: any) => {
+module.exports.addMessage = async (
+  req: IRequestWithUser,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const posted = new Message({ ...req.body });
     const userId = ObjectId(req.decoded._id);
-    const members = req.members;
     posted.userId = userId;
-    // posted.unreadsIds.push(...members);
-    const result = await posted.save();
+    posted.readIds.push(userId);
+    const result = await (await posted.save())
+      .populate("userId", "name")
+      .execPopulate();
     if (!result) {
       throw new Error("Saving failed");
     }
-    const addedUnreads = await addUnreads();
-    if (!addedUnreads) throw new Error("Saving unreads failed");
-    res.json({ success: true, insertId: result._id });
+    emitMessage(userId.toString(), result.groupId.toString(), result);
+    res.json({ success: true, data: result });
   } catch (e) {
     next(e);
   }
 };
 
-module.exports.updateMessage = async (req: any, res: any, next: any) => {
+module.exports.updateMessage = async (
+  req: IRequestWithUser,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { content } = req.body;
     const userId = ObjectId(req.decoded._id);
@@ -47,33 +62,47 @@ module.exports.updateMessage = async (req: any, res: any, next: any) => {
       new: true,
       useFindAndModify: false,
     }).exec();
-
     if (!result) {
       throw new Error("Update failed");
     }
-    res.json({ success: true });
+    res.json({ success: true, data: result });
   } catch (e) {
     next(e);
   }
 };
 
-// module.exports.updateSeenMessages = async (req, res, next) => {
-//   try {
-//     const userId = ObjectId(req.decoded._id);
-//     const groupId = ObjectId(req.body.groupId);
-//     const query = { groupId };
-//     const update = { $addToSet: { seenByIds: userId } };
+module.exports.updateSeenMessages = async (
+  req: IRequestWithUser,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const userId = ObjectId(req.decoded._id);
+    const groupId = ObjectId(req.body.groupId);
+    const query = {
+      groupId,
+      readIds: { $ne: userId },
+    };
+    const update = { $addToSet: { readIds: userId } };
 
-//     const result = await Message.updateMany(query, update).exec();
+    const messages = await Message.find(query, "_id readIds").exec();
+    const result = await Message.updateMany(query, update).exec();
 
-//     if (!result) throw new Error("Update failed");
-//     res.json({ success: true, nModified: result.nModified });
-//   } catch (e) {
-//     next(e);
-//   }
-// };
+    if (!result) throw new Error("Update failed");
+    res.json({
+      success: true,
+      data: messages,
+    });
+  } catch (e) {
+    next(e);
+  }
+};
 
-module.exports.deleteMessage = async (req: any, res: any, next: any) => {
+module.exports.deleteMessage = async (
+  req: IRequestWithUser,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const userId = ObjectId(req.decoded._id);
     const _id = ObjectId(req.params.id);
@@ -81,7 +110,7 @@ module.exports.deleteMessage = async (req: any, res: any, next: any) => {
     const result = await Message.findOneAndDelete(query);
 
     if (!result) throw new Error("Delete failed");
-    res.json({ success: true });
+    res.json({ success: true, data: result._id });
   } catch (e) {
     next(e);
   }

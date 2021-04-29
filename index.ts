@@ -9,33 +9,14 @@ const cors = require("cors");
 const indexRouter = require("./server/routes/index.ts");
 const errorMiddleware = require("./server/middleware/errorMiddleware");
 
-const http = require("http").createServer(app);
-const io = require("socket.io")(http);
-
-// io.on("connection", (socket) => {
-//   console.log(`${socket.id} connected`);
-//   socket.broadcast.emit("user connected", {
-//     userId: socket.id,
-//     name: socket.name,
-//   });
-//   // socket.onclose, rooms, sids?, connected, disconnected, auth
-//   // socket.on('joinGroup', ({userJoinedId, groupId}) => {
-//   //     console.log(userJoinedId, groupId);
-//   //     joinUser(userJoinedId, groupId);
-//   // })
-//   socket.on("disconnect", () => {
-//     console.log(`${socket.id} disconnected`);
-//   });
-// });
-
-// io.use((socket, next) => {
-//     const name = socket.handshake.auth.name;
-//     if(!name) {
-//         return next(new Error('No name'));
-//     }
-//     socket.name = name;
-//     next();
-// });
+// Socket.io
+import { createServer } from "http";
+import { Server } from "socket.io";
+import { onConnection } from "./server/utils/socket";
+const httpServer = createServer(app);
+const io = new Server(httpServer, {});
+io.on("connection", onConnection);
+app.set("socketio", io);
 
 // DB
 mongoose
@@ -63,6 +44,6 @@ app.use("/api", indexRouter);
 app.use(errorMiddleware);
 
 // Start
-http.listen(process.env.PORT, () =>
+httpServer.listen(process.env.PORT, () =>
   console.log(`Running on port ${process.env.PORT}`)
 );
