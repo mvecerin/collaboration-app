@@ -24,7 +24,10 @@ const AccountNavList = () => {
           </div>
         </li>
         <li className="pb-1">
-          <button className="btn btn-primary" onClick={onSignOut}>
+          <button
+            className="btn btn-primary w-100 text-start"
+            onClick={onSignOut}
+          >
             <IconWithText icon="box-arrow-right" text="Sign out" />
           </button>
         </li>

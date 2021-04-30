@@ -16,7 +16,7 @@ export const Dialog = (props: Props) => {
       id={props.id}
       tabIndex={-1}
     >
-      <div className="modal-dialog">
+      <div className="modal-dialog modal-dialog-centered">
         <div className="modal-content">
           <div className="modal-header bg-primary">
             <h5 className="modal-title">{props.title}</h5>

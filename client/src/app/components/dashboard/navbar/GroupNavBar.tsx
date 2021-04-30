@@ -8,7 +8,7 @@ export const GroupNavBar = (params: { group?: IGroup }) => {
   const { user } = useAppSelector((state) => state.user);
   return (
     <>
-      <h5 className="flex-grow-1 ps-3 pt-1 text-light">
+      <h5 className="flex-grow-1 ps-3 text-light" id="nav-group-title">
         <IconWithText icon="x-diamond" text={params.group?.title!} />
         <span className="members-text text-muted tiny ms-3">
           {params.group?.memberIds?.length} members

@@ -29,6 +29,7 @@ export const Dashboard = () => {
   }, []);
 
   useEffect(() => {
+    // TODO
     // Connect if socket not initialized or disconnected
     if (!socket.current || socket.current?.disconnected) {
       if (ids.length !== 0 && user?._id) {

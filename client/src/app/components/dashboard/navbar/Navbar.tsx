@@ -31,19 +31,16 @@ export const Navbar = () => {
       <header className="d-flex sticky-top flex-md-nowrap align-items-center bg-dark">
         <Link
           className="navbar-brand bg-primary col-md-3 col-xl-2 ps-3 fs-3 me-0 link-light"
-          to="/"
+          to="/groups"
         >
           <IconWithText text="Chat app" icon="chat-dots" />
         </Link>
-        <div id="navbar-msg" className="w-100 d-flex my-1">
+        <div id="navbar-msg" className="w-100 d-flex align-items-center my-1">
           {group?._id && <GroupNavBar group={group} />}
           <button
             className="navbar-toggler d-md-none collapsed bi-list btn btn-dark me-2"
-            type="button"
             data-bs-toggle="collapse"
             data-bs-target="#sidebarMenu"
-            aria-controls="sidebarMenu"
-            aria-expanded="false"
             aria-label="Toggle navigation"
           ></button>
         </div>

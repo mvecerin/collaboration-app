@@ -34,7 +34,7 @@ export const MessageInput = ({ groupId }: Props) => {
       />
       <button
         disabled={message.length === 0}
-        className="btn btn-primary ms-1 bi-caret-right-fill rounded-circle
+        className="btn btn-primary ms-1 bi-envelope rounded-circle
         "
         type="submit"
       ></button>

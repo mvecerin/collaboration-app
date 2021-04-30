@@ -8,7 +8,6 @@ import { IGroup } from "../../../../utils/interfaces";
 
 export const GroupsNavList = () => {
   const groups = useAppSelector(selectGroups);
-
   return (
     <nav className="py-4">
       <h5>
@@ -24,16 +23,21 @@ export const GroupsNavList = () => {
   );
 };
 
-const Link = ({ group }: { group: IGroup }) => {
+interface Props {
+  group: IGroup;
+}
+const Link = ({ group }: Props) => {
   let { url } = useRouteMatch();
 
   return (
     <li className="pb-1">
       <NavLink
-        // data-bs-toggle="collapse"
-        // data-bs-target="#sidebarMenu"
         to={`${url}/${group._id}`}
         className="btn btn-primary text-start w-100"
+        // Fix toggle
+        onClick={() => {
+          document.getElementById("sidebarMenu")?.classList.remove("show");
+        }}
       >
         <IconWithText text={group.title} icon="x-diamond" />
         {/* <span className="badge rounded-pill ms-2 bg-dark">14</span> */}

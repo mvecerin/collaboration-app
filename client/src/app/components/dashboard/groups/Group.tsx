@@ -26,9 +26,7 @@ export const Group = () => {
 
   // Reload on delete/leave group
   useEffect(() => {
-    if (ids.length !== 0 && !ids.includes(id)) {
-      history.push("/groups");
-    }
+    if (ids.length !== 0 && !ids.includes(id)) history.push("/groups");
   }, [ids]);
 
   // Scroll to bottom on new messages
@@ -37,18 +35,16 @@ export const Group = () => {
   }, [messages]);
 
   return (
-    <>
-      <div className="chat-container d-flex flex-column">
-        <div
-          className="chat-messages mb-2 px-2 d-flex flex-column align-items-start flex-grow-1"
-          ref={scrollRef}
-        >
-          {messages.map((message) => (
-            <Message message={{ ...message }} key={message._id} />
-          ))}
-        </div>
-        <MessageInput groupId={id} />
+    <div className="chat-container d-flex flex-column">
+      <div
+        className="chat-messages mb-2 px-1 d-flex flex-column align-items-start flex-grow-1"
+        ref={scrollRef}
+      >
+        {messages.map((message) => (
+          <Message message={{ ...message }} key={message._id} />
+        ))}
       </div>
-    </>
+      <MessageInput groupId={id} />
+    </div>
   );
 };
