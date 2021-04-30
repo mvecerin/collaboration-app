@@ -28,8 +28,11 @@ li {
   top: 0;
   bottom: 0;
   left: 0;
-  z-index: 100;
+  z-index: 200;
   padding: 80px 0 0;
+}
+#nav-group-title {
+  line-height: 0;
 }
 .small {
   font-size: 0.9em;
@@ -38,15 +41,6 @@ li {
 .tiny {
   font-size: 0.8em;
 }
-/* Chat */
-.chat-container {
-  overflow: hidden;
-  min-height: calc(100vh - 67px);
-}
-.chat-messages {
-  overflow-y: scroll;
-  max-height: calc(100vh - 115px);
-}
 .avatar {
   display: inline-block;
   font-size: 1.7em;
@@ -54,11 +48,36 @@ li {
   line-height: 0;
   padding: 3px;
   margin-top: 5px;
-  margin-right: 13px;
+  margin-right: 12px;
   align-self: flex-start;
 }
-#nav-group-title {
-  line-height: 0;
+/* Chat */
+/* .chat-container {
+  overflow: hidden;
+  min-height: calc(100vh - 67px);
+}
+.chat-messages {
+  overflow-y: scroll;
+  max-height: calc(100vh - 115px);
+} */
+.chat-container {
+  position: relative;
+  min-height: calc(100vh - 50px);
+  overflow: hidden;
+}
+.chat-messages {
+  overflow-y: scroll;
+  max-height: calc(100vh - 90px);
+}
+.msg-input {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  padding: 2px;
 }
 
 @media (max-width: 767.98px) {
@@ -66,15 +85,7 @@ li {
   .members-text {
     display: none;
   }
-  #navbar-msg {
-    padding-top: 3px;
-    padding-bottom: 3px;
-    justify-content: end;
-  }
   .msg-input {
     position: fixed;
-    bottom: 4px;
-    left: 4px;
-    right: 4px;
   }
 }

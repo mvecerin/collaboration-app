@@ -21,7 +21,7 @@ export const MessageInput = ({ groupId }: Props) => {
     } catch (e) {}
   };
   return (
-    <form className="msg-input d-flex" onSubmit={onSubmit}>
+    <form className="msg-input" onSubmit={onSubmit}>
       <input
         className="p-2 flex-grow-1"
         placeholder="Send a message"
@@ -30,7 +30,6 @@ export const MessageInput = ({ groupId }: Props) => {
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           setMessage(e.target.value)
         }
-        autoFocus
       />
       <button
         disabled={message.length === 0}

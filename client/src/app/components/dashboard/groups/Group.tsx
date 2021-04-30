@@ -35,11 +35,8 @@ export const Group = () => {
   }, [messages]);
 
   return (
-    <div className="chat-container d-flex flex-column">
-      <div
-        className="chat-messages mb-2 px-1 d-flex flex-column align-items-start flex-grow-1"
-        ref={scrollRef}
-      >
+    <div className="chat-container">
+      <div className="chat-messages px-1" ref={scrollRef}>
         {messages.map((message) => (
           <Message message={{ ...message }} key={message._id} />
         ))}

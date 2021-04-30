@@ -35,7 +35,7 @@ export const Navbar = () => {
         >
           <IconWithText text="Chat app" icon="chat-dots" />
         </Link>
-        <div id="navbar-msg" className="w-100 d-flex align-items-center my-1">
+        <div className="w-100 d-flex align-items-center my-1">
           {group?._id && <GroupNavBar group={group} />}
           <button
             className="navbar-toggler d-md-none collapsed bi-list btn btn-dark me-2"
