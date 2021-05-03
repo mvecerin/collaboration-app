@@ -1,3 +1,4 @@
+import { Request, Response } from "express";
 require("dotenv").config();
 const express = require("express");
 const app = express();
@@ -30,20 +31,19 @@ mongoose
 // Middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static(__dirname + "/public/app"));
+app.use(express.static(path.join(__dirname + "client", "build")));
 app.use(helmet());
 app.use(morgan("dev"));
 app.use(cors());
 
 // Routers
 app.use("/api", indexRouter);
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname + "/public/app"));
-// });
+app.get("*", (req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname + "client", "build", "index.html"));
+});
 
 app.use(errorMiddleware);
 
 // Start
-httpServer.listen(process.env.PORT, () =>
-  console.log(`Running on port ${process.env.PORT}`)
-);
+const port = process.env.PORT || 5000;
+httpServer.listen(port, () => console.log(`Running on port ${port}`));
