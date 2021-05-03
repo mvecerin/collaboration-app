@@ -62,7 +62,7 @@ li {
 } */
 .chat-container {
   position: relative;
-  min-height: calc(100vh - 50px);
+  min-height: calc(100vh - 53px);
   overflow: hidden;
 }
 .chat-messages {
