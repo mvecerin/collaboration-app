@@ -1,7 +1,7 @@
-import { Request, Response } from "express";
+import { Application, Request, Response } from "express";
 require("dotenv").config();
 const express = require("express");
-const app = express();
+const app: Application = express();
 const morgan = require("morgan");
 const helmet = require("helmet");
 let path = require("path");
