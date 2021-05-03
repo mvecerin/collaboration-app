@@ -52,14 +52,6 @@ li {
   align-self: flex-start;
 }
 /* Chat */
-/* .chat-container {
-  overflow: hidden;
-  min-height: calc(100vh - 67px);
-}
-.chat-messages {
-  overflow-y: scroll;
-  max-height: calc(100vh - 115px);
-} */
 .chat-container {
   position: relative;
   min-height: calc(100vh - 53px);
@@ -75,9 +67,12 @@ li {
   right: 0;
   display: flex;
   left: 0;
-  width: 100%;
   z-index: 100;
+}
+.msg-input form {
   padding: 2px;
+  display: flex;
+  width: 100%;
 }
 
 @media (max-width: 767.98px) {

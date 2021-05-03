@@ -21,22 +21,24 @@ export const MessageInput = ({ groupId }: Props) => {
     } catch (e) {}
   };
   return (
-    <form className="msg-input" onSubmit={onSubmit}>
-      <input
-        className="p-2 flex-grow-1"
-        placeholder="Send a message"
-        autoComplete="off"
-        value={message}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          setMessage(e.target.value)
-        }
-      />
-      <button
-        disabled={message.length === 0}
-        className="btn btn-primary ms-1 bi-envelope rounded-circle
+    <div className="msg-input bg-light">
+      <form onSubmit={onSubmit}>
+        <input
+          className="p-2 flex-grow-1"
+          placeholder="Send a message"
+          autoComplete="off"
+          value={message}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setMessage(e.target.value)
+          }
+        />
+        <button
+          disabled={message.length === 0}
+          className="btn btn-primary ms-1 bi-envelope rounded-circle
         "
-        type="submit"
-      ></button>
-    </form>
+          type="submit"
+        ></button>
+      </form>
+    </div>
   );
 };
