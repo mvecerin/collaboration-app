@@ -3,9 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type": "module",
   "scripts": {
-    "start": "node index.js",
+    "start": "node build/index.js",
     "build": "tsc --project ./",
     "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
   },
