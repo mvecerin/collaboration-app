@@ -32,9 +32,7 @@ export const Dashboard = () => {
     // TODO
     // Connect if socket not initialized or disconnected
     if (!socket.current || socket.current?.disconnected) {
-      if (ids.length !== 0 && user?._id) {
-        socket.current = initSocket(user?._id, ids, dispatch);
-      }
+      socket.current = initSocket(user?._id!, ids, dispatch);
     }
     // Disconnect on unmount
     return () => {

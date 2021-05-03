@@ -34,7 +34,7 @@ export const Group = () => {
     scroll();
   }, [messages]);
 
-  return (
+  return ids.includes(id) ? (
     <div className="chat-container">
       <div className="chat-messages px-1" ref={scrollRef}>
         {messages.map((message) => (
@@ -43,5 +43,7 @@ export const Group = () => {
       </div>
       <MessageInput groupId={id} />
     </div>
+  ) : (
+    <></>
   );
 };
