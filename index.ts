@@ -7,7 +7,7 @@ const helmet = require("helmet");
 let path = require("path");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const indexRouter = require("./server/routes/index.ts");
+const indexRouter = require("./server/routes/index");
 const errorMiddleware = require("./server/middleware/errorMiddleware");
 
 // Socket.io
