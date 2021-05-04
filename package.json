@@ -6,7 +6,10 @@
   "scripts": {
     "start": "node dist/index.js",
     "build": "tsc",
-    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
+    "heroku-postbuild": "tsc && cd client && npm install --only=dev && npm install && npm run build"
+  },
+  "engines": {
+    "node": "12.15.0"
   },
   "author": "",
   "license": "ISC",
