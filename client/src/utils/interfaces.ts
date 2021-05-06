@@ -19,20 +19,12 @@ export interface IMessage {
   groupId: string;
   seenByIds?: string[];
 }
+export interface IGroupState extends IGroup {
+  messagesLoaded?: boolean;
+}
 export interface IUserState {
   user: IUser | null;
   isAuth: boolean | null;
-  success: string | null;
-  isLoading: boolean;
-}
-export interface IGroupState {
-  data: IGroup[];
-  isLoading: boolean;
-  success: boolean;
-}
-export interface IMessageState {
-  data: IMessage[];
-  error: string | null;
   success: string | null;
   isLoading: boolean;
 }
@@ -44,12 +36,6 @@ export interface IResponse {
 }
 export interface ITokenResponse extends IResponse {
   token?: string;
-}
-
-export interface IAction {
-  type: string;
-  payload?: any;
-  error?: any;
 }
 
 export interface RouteParams {

@@ -16,10 +16,11 @@ export const Dashboard = () => {
   const { success, user } = useAppSelector((state) => state.user);
   const dispatch = useThunkDispatch();
   let { path } = useRouteMatch();
-  const { ids } = useAppSelector((state) => state.groups);
+  const { ids, loaded } = useAppSelector((state) => state.groups);
   const socket = useRef<Socket>();
 
-  // Show success toast on sign in success and load groups
+  // Show success toast on sign in success
+  // Load groups
   useEffect(() => {
     if (success) {
       toast.success(success);
@@ -28,17 +29,20 @@ export const Dashboard = () => {
     dispatch(getGroups());
   }, []);
 
+  const isSocketDisconnected = (): boolean =>
+    !socket.current || socket.current.disconnected;
+
+  // Connect if socket not initialized or disconnected
+  // and groups have loaded
   useEffect(() => {
-    // TODO
-    // Connect if socket not initialized or disconnected
-    if (!socket.current || socket.current?.disconnected) {
+    if (isSocketDisconnected() && loaded) {
       socket.current = initSocket(user?._id!, ids, dispatch);
     }
     // Disconnect on unmount
     return () => {
       if (socket.current?.connected) socket.current.disconnect();
     };
-  }, [ids]);
+  }, [loaded]);
 
   return (
     <>
@@ -53,7 +57,7 @@ export const Dashboard = () => {
                 <Group />
               </Route>
               <Route exact path={`${path}`}>
-                <Redirect to={`${path}/${ids[0] ? ids[0] : ""}`} />
+                {ids[0] ? <Redirect to={`${path}/${ids[0]}`} /> : <></>}
               </Route>
             </Switch>
           </main>

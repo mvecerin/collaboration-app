@@ -5,13 +5,14 @@ import {
 } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
 import { api } from "../../utils/api";
-import { IGroup, IResponse } from "../../utils/interfaces";
+import { IGroup, IGroupState, IResponse } from "../../utils/interfaces";
+import { getMessages } from "../messages/messageSlice";
 
-export const groupsAdapter = createEntityAdapter<IGroup>({
+export const groupsAdapter = createEntityAdapter<IGroupState>({
   selectId: (group) => group._id!,
 });
 const initialState = groupsAdapter.getInitialState({
-  isLoading: false,
+  loaded: false,
 });
 
 export const getGroups = createAsyncThunk("group/getGroups", async () => {
@@ -76,6 +77,7 @@ const groupSlice = createSlice({
     builder
       // Load groups
       .addCase(getGroups.fulfilled, (state, { payload }) => {
+        state.loaded = true;
         groupsAdapter.setAll(state, payload.groups);
       })
       // Add group
@@ -107,6 +109,13 @@ const groupSlice = createSlice({
       // Delete group
       .addCase(deleteGroup.fulfilled, (state, { payload }) => {
         groupsAdapter.removeOne(state, payload);
+      })
+      // Track if messages loaded for group
+      .addCase(getMessages.fulfilled, (state, { payload }) => {
+        groupsAdapter.updateOne(state, {
+          changes: { messagesLoaded: true },
+          id: payload.groupId,
+        });
       });
   },
 });

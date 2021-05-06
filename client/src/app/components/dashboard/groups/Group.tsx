@@ -17,16 +17,16 @@ export const Group = () => {
   const dispatch = useThunkDispatch();
   const messages = useAppSelector((state) => selectMessagesByGroup(state, id));
   let history = useHistory();
-  const { ids } = useAppSelector((state) => state.groups);
+  const { ids, loaded, entities } = useAppSelector((state) => state.groups);
 
   // Load messages
   useEffect(() => {
-    if (messages.length === 0) dispatch(getMessages(id));
+    if (!entities[id]?.messagesLoaded) dispatch(getMessages(id));
   }, [id]);
 
   // Reload on delete/leave group
   useEffect(() => {
-    if (ids.length !== 0 && !ids.includes(id)) history.push("/groups");
+    if (loaded && !ids.includes(id)) history.push("/groups");
   }, [ids]);
 
   // Scroll to bottom on new messages
@@ -34,7 +34,7 @@ export const Group = () => {
     scroll();
   }, [messages]);
 
-  return ids.includes(id) ? (
+  return (
     <div className="chat-container">
       <div className="chat-messages px-1" ref={scrollRef}>
         {messages.map((message) => (
@@ -43,7 +43,5 @@ export const Group = () => {
       </div>
       <MessageInput groupId={id} />
     </div>
-  ) : (
-    <></>
   );
 };

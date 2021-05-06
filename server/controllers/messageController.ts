@@ -5,6 +5,7 @@ import Message from "../models/Message";
 import { emitMessage } from "../utils/socket";
 const { addUnreads } = require("../controllers/groupController");
 
+// TODO pagination
 module.exports.getMessages = async (
   req: IRequestWithUser,
   res: Response,
