@@ -13,7 +13,7 @@
     "@types/react": "^16.14.5",
     "@types/react-dom": "^16.9.12",
     "@types/react-redux": "^7.1.16",
-    "bootstrap": "^5.0.0-beta3",
+    "bootstrap": "^5.0.0",
     "bootstrap-icons": "^1.4.1",
     "node-sass": "^5.0.0",
     "react": "^17.0.2",
