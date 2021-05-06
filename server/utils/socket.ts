@@ -28,7 +28,7 @@ export const emitJoinMember = (
   memberIds: any[],
   groupId: string
 ) => {
-  //connectRoom(sockets[userId], groupId);
+  connectRoom(sockets[userId], groupId);
   sockets[userId].to(groupId).emit("membersEdit", { memberIds, groupId });
 };
 export const emitLeaveMember = (
@@ -36,7 +36,7 @@ export const emitLeaveMember = (
   memberIds: any[],
   groupId: string
 ) => {
-  //leaveRoom(sockets[userId], groupId);
+  leaveRoom(sockets[userId], groupId);
   sockets[userId].to(groupId).emit("membersEdit", { memberIds, groupId });
 };
 export const emitEditTitle = (
