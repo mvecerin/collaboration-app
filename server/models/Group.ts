@@ -27,7 +27,7 @@ const GroupSchema = new mongoose.Schema({
   },
   memberIds: {
     type: [{ type: mongoose.Types.ObjectId, ref: "User" }],
-    required: false,
+    required: true,
   },
   // members: {
   //   type: [MemberSchema],
