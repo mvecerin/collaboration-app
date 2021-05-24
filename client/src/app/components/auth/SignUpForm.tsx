@@ -19,10 +19,12 @@ export const SignUpForm = () => {
   const [dispatch] = useDispatchWithReturn();
   const form = useRef<HTMLFormElement>(null);
 
+  const passwordsMatch = () => values.password === values.password2;
+
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     form.current?.classList.add("was-validated");
-    if (form.current?.checkValidity()) {
+    if (form.current?.checkValidity() && passwordsMatch()) {
       try {
         await dispatch(signUp(values));
       } catch (e) {
@@ -33,7 +35,7 @@ export const SignUpForm = () => {
 
   const onPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     handleChange(e);
-    if (values.password !== e.target.value) {
+    if (passwordsMatch()) {
       e.target.classList.add("is-invalid");
     } else {
       e.target.classList.replace("is-invalid", "is-valid");

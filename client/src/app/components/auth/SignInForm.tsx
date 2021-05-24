@@ -32,7 +32,6 @@ export const SignInForm = () => {
       } catch (e) {
         toast.error(e.message);
       }
-    } else {
     }
   };
 
