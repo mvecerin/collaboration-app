@@ -55,10 +55,10 @@ li {
 .chat-container {
   position: relative;
   min-height: calc(100vh - 53px);
-  overflow: hidden;
+  overflow-y: hidden;
 }
 .chat-messages {
-  overflow-y: scroll;
+  overflow-y: auto;
   max-height: calc(100vh - 90px);
 }
 .msg-input {
