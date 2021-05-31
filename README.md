@@ -9,5 +9,5 @@ Users for testing:
 bruce@mail.com
 brucepass
 
-poppy@mail.com
-poppypass
+danny@mail.com
+dannypass
