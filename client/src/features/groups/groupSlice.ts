@@ -82,7 +82,7 @@ const groupSlice = createSlice({
       })
       // Add group
       .addCase(createGroup.fulfilled, (state, { payload }) => {
-        groupsAdapter.addOne(state, payload.group);
+        groupsAdapter.addOne(state, { ...payload.group, messagesLoaded: true });
       })
       // Add invite
       .addCase(createInvite.fulfilled, (state, { payload }) => {
@@ -123,7 +123,5 @@ const groupSlice = createSlice({
 export const { membersEdit } = groupSlice.actions;
 export default groupSlice.reducer;
 
-export const {
-  selectAll: selectGroups,
-  selectById: selectGroupById,
-} = groupsAdapter.getSelectors<RootState>((state) => state.groups);
+export const { selectAll: selectGroups, selectById: selectGroupById } =
+  groupsAdapter.getSelectors<RootState>((state) => state.groups);
