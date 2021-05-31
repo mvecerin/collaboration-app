@@ -59,3 +59,7 @@ export const emitMessage = (
 ) => {
   sockets[userId].to(groupId).emit("message", { message });
 };
+
+export const joinAddedGroup = (userId: string, groupId: string) => {
+  connectRoom(sockets[userId], groupId);
+};

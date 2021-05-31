@@ -9,6 +9,7 @@ import {
   emitEditTitle,
   emitJoinMember,
   emitLeaveMember,
+  joinAddedGroup,
 } from "../utils/socket";
 
 module.exports.getGroups = async (
@@ -49,6 +50,7 @@ module.exports.addGroup = async (
     if (!data) {
       throw new Error("Saving failed");
     }
+    joinAddedGroup(userId.toString(), data._id.toString());
     res.json({ success: true, data: data });
   } catch (e) {
     next(e);
