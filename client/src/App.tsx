@@ -11,6 +11,25 @@ import { Loading } from "./app/components/other/Loading";
 import { useAppSelector, useThunkDispatch } from "./app/store";
 import { loadUser } from "./features/user/userSlice";
 
+const App = () => {
+  const dispatch = useThunkDispatch();
+  useEffect(() => {
+    dispatch(loadUser());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  return (
+    <div className="bg-light min-vh-100">
+      <Router>
+        <Switch>
+          <Routes />
+        </Switch>
+      </Router>
+    </div>
+  );
+};
+
+export default App;
+
 const Routes = () => {
   const { isAuth, isLoading } = useAppSelector((state) => state.user);
   return isLoading ? (
@@ -35,22 +54,3 @@ const Routes = () => {
     </>
   );
 };
-
-const App = () => {
-  const dispatch = useThunkDispatch();
-  useEffect(() => {
-    dispatch(loadUser());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  return (
-    <div className="bg-light min-vh-100">
-      <Router>
-        <Switch>
-          <Routes />
-        </Switch>
-      </Router>
-    </div>
-  );
-};
-
-export default App;
