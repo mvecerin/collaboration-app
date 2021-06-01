@@ -20,10 +20,10 @@ const MessageSchema = new mongoose.Schema({
     type: mongoose.Types.ObjectId,
     required: true,
   },
-  readIds: {
-    type: [mongoose.Types.ObjectId],
-    required: false,
-  },
+  // readIds: {
+  //   type: [mongoose.Types.ObjectId],
+  //   required: false,
+  // },
 });
 
 export const deleteMessagesByGroup = (groupId: mongoose.Types.ObjectId) => {
