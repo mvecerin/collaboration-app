@@ -3,9 +3,8 @@ import { NextFunction, Response } from "express";
 import { IRequestWithUser } from "../interfaces";
 import Message from "../models/Message";
 import { emitMessage } from "../utils/socket";
-const { addUnreads } = require("../controllers/groupController");
+// const { addUnreads } = require("../controllers/groupController");
 
-// TODO pagination
 module.exports.getMessages = async (
   req: IRequestWithUser,
   res: Response,
@@ -33,7 +32,7 @@ module.exports.addMessage = async (
     const posted = new Message({ ...req.body });
     const userId = ObjectId(req.decoded._id);
     posted.userId = userId;
-    posted.readIds.push(userId);
+    // posted.readIds.push(userId);
     const result = await (await posted.save())
       .populate("userId", "name")
       .execPopulate();
@@ -72,32 +71,32 @@ module.exports.updateMessage = async (
   }
 };
 
-module.exports.updateSeenMessages = async (
-  req: IRequestWithUser,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    const userId = ObjectId(req.decoded._id);
-    const groupId = ObjectId(req.body.groupId);
-    const query = {
-      groupId,
-      readIds: { $ne: userId },
-    };
-    const update = { $addToSet: { readIds: userId } };
+// module.exports.updateSeenMessages = async (
+//   req: IRequestWithUser,
+//   res: Response,
+//   next: NextFunction
+// ) => {
+//   try {
+//     const userId = ObjectId(req.decoded._id);
+//     const groupId = ObjectId(req.body.groupId);
+//     const query = {
+//       groupId,
+//       readIds: { $ne: userId },
+//     };
+//     const update = { $addToSet: { readIds: userId } };
 
-    const messages = await Message.find(query, "_id readIds").exec();
-    const result = await Message.updateMany(query, update).exec();
+//     const messages = await Message.find(query, "_id readIds").exec();
+//     const result = await Message.updateMany(query, update).exec();
 
-    if (!result) throw new Error("Update failed");
-    res.json({
-      success: true,
-      data: messages,
-    });
-  } catch (e) {
-    next(e);
-  }
-};
+//     if (!result) throw new Error("Update failed");
+//     res.json({
+//       success: true,
+//       data: messages,
+//     });
+//   } catch (e) {
+//     next(e);
+//   }
+// };
 
 module.exports.deleteMessage = async (
   req: IRequestWithUser,

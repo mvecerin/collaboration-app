@@ -10,7 +10,7 @@
     "heroku-postbuild": "tsc && cd client && npm install --only=dev && npm install && npm run build"
   },
   "engines": {
-    "node": "12.15.0"
+    "node": "14.17.3"
   },
   "author": "",
   "license": "ISC",

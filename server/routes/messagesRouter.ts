@@ -17,7 +17,7 @@ messagesRouter.post("/", addMessage);
 messagesRouter.put("/content", updateMessage);
 
 // api/messages/seen
-messagesRouter.put("/seen", updateSeenMessages);
+// messagesRouter.put("/seen", updateSeenMessages);
 
 // /api/messages/:id
 messagesRouter.route("/:id").delete(deleteMessage);
