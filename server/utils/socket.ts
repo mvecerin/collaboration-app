@@ -1,5 +1,5 @@
 import { Socket } from "socket.io";
-import { IMessage } from "../interfaces";
+import { IMessage, ITask } from "../interfaces";
 
 let sockets: any = {};
 
@@ -52,6 +52,11 @@ export const emitDeleteGroup = (userId: string, groupId: string) => {
   sockets[userId].to(groupId).emit("groupDeleted", { groupId });
 };
 
+export const joinAddedGroup = (userId: string, groupId: string) => {
+  connectRoom(sockets[userId], groupId);
+};
+
+// MESSAGES
 export const emitMessage = (
   userId: string,
   groupId: string,
@@ -60,6 +65,19 @@ export const emitMessage = (
   sockets[userId].to(groupId).emit("message", { message });
 };
 
-export const joinAddedGroup = (userId: string, groupId: string) => {
-  connectRoom(sockets[userId], groupId);
+// TASKS
+export const emitTask = (userId: string, groupId: string, task: ITask) => {
+  sockets[userId].to(groupId).emit("task", { task });
+};
+// TODO refactor?
+export const emitTaskEdit = (userId: string, groupId: string, task: ITask) => {
+  sockets[userId].to(groupId).emit("taskEdit", { task });
+};
+// TODO refactor?
+export const emitTaskDelete = (
+  userId: string,
+  groupId: string,
+  taskId: string
+) => {
+  sockets[userId].to(groupId).emit("taskDelete", { taskId });
 };

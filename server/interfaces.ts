@@ -16,6 +16,16 @@ export interface IGroup extends Document {
   memberIds: any[];
 }
 
+export interface ITask extends Document {
+  _id: any;
+  title: string;
+  description: string;
+  groupId: any;
+  creatorId: any;
+  assigedToId: any;
+  done: boolean;
+}
+
 export interface IMessage extends Document {
   _id: any;
   content: string;

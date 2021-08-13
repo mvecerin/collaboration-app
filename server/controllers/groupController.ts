@@ -4,6 +4,7 @@ import { NextFunction, Response } from "express";
 import { IRequestWithUser } from "../interfaces";
 import Group, { updateGroup } from "../models/Group";
 import { deleteMessagesByGroup } from "../models/Message";
+import { deleteTasksByGroup } from "../models/Task";
 import {
   emitDeleteGroup,
   emitEditTitle,
@@ -194,6 +195,10 @@ module.exports.deleteGroup = async (
     const deleteMessages = await deleteMessagesByGroup(result._id);
     if (!deleteMessages.ok) {
       throw new Error("Deleting messages failed");
+    }
+    const deleteTasks = await deleteTasksByGroup(result._id);
+    if (!deleteTasks.ok) {
+      throw new Error("Deleting tasks failed");
     }
     emitDeleteGroup(userId.toString(), _id.toString());
     res.json({ success: true, data: result._id });

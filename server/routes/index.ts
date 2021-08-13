@@ -13,6 +13,7 @@ router.use(authMiddleware);
 router.use("/groups", require("./groupsRouter"));
 router.use("/users", require("./usersRouter"));
 router.use("/messages", require("./messagesRouter"));
+router.use("/tasks", require("./taskRouter"));
 
 router.get("*", (req: Request, res: Response) =>
   res.status(404).json({ msg: "Wrong API call" })
