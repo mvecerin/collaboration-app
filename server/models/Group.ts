@@ -1,17 +1,6 @@
 import mongoose from "mongoose";
 import { IGroup } from "../interfaces";
 
-// const MemberSchema = new mongoose.Schema({
-//   memberId: {
-//     type: [{ type: mongoose.Types.ObjectId, ref: "User" }],
-//     required: false,
-//   },
-//   unreads: {
-//     type: Number,
-//     default: 0,
-//   },
-// });
-
 const GroupSchema = new mongoose.Schema({
   title: {
     type: String,
@@ -29,10 +18,6 @@ const GroupSchema = new mongoose.Schema({
     type: [{ type: mongoose.Types.ObjectId, ref: "User" }],
     required: true,
   },
-  // members: {
-  //   type: [MemberSchema],
-  //   required: false,
-  // },
 });
 
 export const updateGroup = (query: object, update: object) => {
