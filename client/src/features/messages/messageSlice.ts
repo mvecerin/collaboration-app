@@ -60,12 +60,9 @@ const messageSlice = createSlice({
 export default messageSlice.reducer;
 
 // SELECTORS
-export const {
-  selectAll: selectMessages,
-  selectById: selectMessageById,
-} = messagesAdapter.getSelectors<RootState>((state) => state.messages);
+export const { selectAll: selectMessages, selectById: selectMessageById } =
+  messagesAdapter.getSelectors<RootState>((state) => state.messages);
 
-// TODO loaded
 export const selectMessagesByGroup = createSelector(
   [selectMessages, (state: RootState, groupId: string) => groupId],
   (messages, groupId) =>
