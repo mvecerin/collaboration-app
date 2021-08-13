@@ -14,6 +14,12 @@ export const NavbarDropdown = (props: {
         aria-expanded="false"
       ></button>
       <ul className="dropdown-menu dropdown-menu-end dropdown-menu-dark">
+        <DropdownItem
+          target="#tasks"
+          icon="list-task"
+          text="Toggle tasks"
+          toggle="offcanvas"
+        />
         {props.isAdmin ? (
           <>
             <DropdownItem

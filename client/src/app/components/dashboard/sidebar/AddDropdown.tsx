@@ -1,15 +1,11 @@
 import React from "react";
 import { DropdownItem } from "../../other/DropdownItem";
+import { PlusButton } from "../../other/PlusButton";
 
 export const AddDropdown = () => {
   return (
     <div className="dropdown d-inline-block">
-      <button
-        className="bi-plus-circle btn btn-primary rounded-circle btn-sm ms-1"
-        title="Add/join new group"
-        id="addDropdown"
-        data-bs-toggle="dropdown"
-      ></button>
+      <PlusButton toggle="dropdown" />
       <ul className="dropdown-menu dropdown-menu-end dropdown-menu-dark">
         <DropdownItem
           target="#addGroupDialog"

@@ -1,9 +1,11 @@
-//$dark: #222429;
 $light: #f8f8f8;
-//$gray: #5c6069;
 $primary: #024640;
+$secondary: rgb(226, 226, 226);
 $form-feedback-valid-color: #ced4da;
 $form-feedback-icon-valid: none;
+$offcanvas-bg-color: $light;
+$btn-padding-y: 0.24rem;
+$btn-padding-x: 0.5rem;
 
 @import "~bootstrap/scss/bootstrap.scss";
 @import "~bootstrap-icons/font/bootstrap-icons.css";
@@ -15,4 +17,9 @@ $form-feedback-icon-valid: none;
 .bg-primary {
   color: $light;
   background-color: $primary;
+}
+
+.bg-progress {
+  background-color: #c09f44;
+  color: $dark;
 }

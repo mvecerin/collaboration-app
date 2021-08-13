@@ -5,12 +5,13 @@ interface Props {
   target: string;
   text: string;
   icon: string;
+  toggle?: string;
 }
-export const DropdownItem = ({ target, text, icon }: Props) => (
+export const DropdownItem = ({ target, text, icon, toggle }: Props) => (
   <li>
     <button
       className="dropdown-item"
-      data-bs-toggle="modal"
+      data-bs-toggle={toggle ? toggle : "modal"}
       data-bs-target={target}
     >
       <IconWithText icon={icon} text={text} />

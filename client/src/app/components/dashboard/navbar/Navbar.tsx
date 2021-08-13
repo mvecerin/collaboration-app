@@ -9,6 +9,8 @@ import { useAppSelector } from "../../../store";
 import { selectGroupById } from "../../../../features/groups/groupSlice";
 import { LeaveGroupDialog } from "./LeaveGroupDialog";
 import { EditTitleDialog } from "./EditTitleDialog";
+import { Tasks } from "../tasks/Tasks";
+import { AddTaskDialog } from "../tasks/AddTaskDialog";
 
 export const Navbar = () => {
   const match = useRouteMatch<RouteParams>("/groups/:id");
@@ -48,5 +50,7 @@ const Dialogs = ({ group }: Props) => (
     <DeleteGroupDialog groupId={group._id!} groupTitle={group.title} />
     <LeaveGroupDialog groupId={group._id!} groupTitle={group.title} />
     <EditTitleDialog groupId={group._id!} groupTitle={group.title} />
+    <Tasks groupId={group._id!} />
+    <AddTaskDialog groupId={group._id!} />
   </>
 );

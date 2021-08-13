@@ -6,6 +6,7 @@ import {
   membersEdit,
 } from "../features/groups/groupSlice";
 import { addMessage } from "../features/messages/messageSlice";
+import { addTask, deleteTask, editTask } from "../features/tasks/taskSlice";
 
 let socket: Socket;
 
@@ -23,9 +24,6 @@ export const initSocket = (
   socket.on("connect", () => {
     console.log(`socket connected: ${socket.id}`);
   });
-  socket.on("message", ({ message }) => {
-    dispatch({ type: addMessage.fulfilled.type, payload: message });
-  });
   socket.on("groupDeleted", ({ groupId }) => {
     dispatch({ type: deleteGroup.fulfilled.type, payload: groupId });
   });
@@ -41,6 +39,21 @@ export const initSocket = (
       payload: { groupId, memberIds },
     });
   });
+  // MESSAGES
+  socket.on("message", ({ message }) => {
+    dispatch({ type: addMessage.fulfilled.type, payload: message });
+  });
+  // TASKS
+  socket.on("task", ({ task }) => {
+    dispatch({ type: addTask.fulfilled.type, payload: task });
+  });
+  socket.on("taskEdit", ({ task }) => {
+    dispatch({ type: editTask.fulfilled.type, payload: task });
+  });
+  socket.on("taskDelete", ({ taskId }) => {
+    dispatch({ type: deleteTask.fulfilled.type, payload: taskId });
+  });
+
   socket.on("disconnect", (reason) => {
     console.log(`socket disconnected: ${reason}`);
   });

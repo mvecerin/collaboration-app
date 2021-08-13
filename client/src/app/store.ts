@@ -7,12 +7,14 @@ import {
 import userReducer from "../features/user/userSlice";
 import groupReducer from "../features/groups/groupSlice";
 import messageReducer from "../features/messages/messageSlice";
+import tasksReducer from "../features/tasks/taskSlice";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
 const combinedReducer = combineReducers({
   user: userReducer,
   groups: groupReducer,
   messages: messageReducer,
+  tasks: tasksReducer,
 });
 
 const rootReducer = (state: any, action: any) => {

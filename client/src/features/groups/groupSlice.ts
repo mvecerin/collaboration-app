@@ -7,6 +7,7 @@ import { RootState } from "../../app/store";
 import { api } from "../../utils/api";
 import { IGroup, IGroupState, IResponse } from "../../utils/interfaces";
 import { getMessages } from "../messages/messageSlice";
+import { getTasks } from "../tasks/taskSlice";
 
 export const groupsAdapter = createEntityAdapter<IGroupState>({
   selectId: (group) => group._id!,
@@ -114,6 +115,13 @@ const groupSlice = createSlice({
       .addCase(getMessages.fulfilled, (state, { payload }) => {
         groupsAdapter.updateOne(state, {
           changes: { messagesLoaded: true },
+          id: payload.groupId,
+        });
+      })
+      // Track if tasks loaded for group
+      .addCase(getTasks.fulfilled, (state, { payload }) => {
+        groupsAdapter.updateOne(state, {
+          changes: { tasksLoaded: true },
           id: payload.groupId,
         });
       });

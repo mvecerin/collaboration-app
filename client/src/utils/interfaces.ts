@@ -19,8 +19,18 @@ export interface IMessage {
   groupId: string;
   seenByIds?: string[];
 }
+export interface ITask {
+  _id?: string;
+  title: string;
+  description: string;
+  groupId: string;
+  creatorId?: string;
+  assignedToId?: any; //populate()
+  done?: boolean;
+}
 export interface IGroupState extends IGroup {
   messagesLoaded?: boolean;
+  tasksLoaded?: boolean;
 }
 export interface IUserState {
   user: IUser | null;

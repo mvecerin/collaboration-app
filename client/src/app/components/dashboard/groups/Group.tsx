@@ -5,6 +5,7 @@ import {
   getMessages,
   selectMessagesByGroup,
 } from "../../../../features/messages/messageSlice";
+import { getTasks } from "../../../../features/tasks/taskSlice";
 import { RouteParams } from "../../../../utils/interfaces";
 import { useAppSelector, useThunkDispatch } from "../../../store";
 import { useScroll } from "../../other/hooks/useScroll";
@@ -19,9 +20,10 @@ export const Group = () => {
   let history = useHistory();
   const { ids, loaded, entities } = useAppSelector((state) => state.groups);
 
-  // Load messages
+  // Load initial messages and tasks
   useEffect(() => {
     if (!entities[id]?.messagesLoaded) dispatch(getMessages(id));
+    if (!entities[id]?.tasksLoaded) dispatch(getTasks(id));
   }, [id]);
 
   // Reload on delete/leave group
