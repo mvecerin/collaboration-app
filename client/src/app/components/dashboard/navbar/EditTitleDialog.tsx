@@ -15,7 +15,7 @@ export const EditTitleDialog = (props: {
   const onSubmit = async (e: React.FormEvent<Element>) => {
     e.preventDefault();
     try {
-      const result = dispatch(
+      const result = await dispatch(
         editGroupTitle({
           _id: props.groupId,
           title: title!,
