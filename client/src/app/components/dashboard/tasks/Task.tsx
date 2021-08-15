@@ -25,6 +25,7 @@ export const Task = ({ task, color }: Props) => {
     dispatch(deleteTask(task._id!));
   };
   const assignedToMe = () => task.assignedToId?._id === user?._id;
+  const assignedTo = () => (assignedToMe() ? "you" : task.assignedToId?.name);
   return (
     <div className="card my-3">
       <div
@@ -46,8 +47,7 @@ export const Task = ({ task, color }: Props) => {
           {task.assignedToId ? (
             <>
               <span className="lighter align-self-center">
-                {task.done ? "Done" : "In progress"} | Assigned to{" "}
-                {assignedToMe() ? "you" : task.assignedToId.name}
+                Assigned to {assignedTo()}
               </span>
               {assignedToMe() && !task.done && (
                 <button className="btn btn-secondary" onClick={onDone}>
