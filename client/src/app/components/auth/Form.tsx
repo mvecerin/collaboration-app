@@ -8,7 +8,7 @@ export const Form = (props: { formType: string }) => (
   <main className="pt-5">
     <Toaster />
     <h1 className="text-center h2 pb-3">
-      <IconWithText text="Chat app" icon="chat-dots" />
+      <IconWithText text="Collab app" icon="chat-dots" />
     </h1>
     {props.formType === "signIn" ? <SignInForm /> : <SignUpForm />}
   </main>

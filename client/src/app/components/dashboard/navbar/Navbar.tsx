@@ -25,7 +25,7 @@ export const Navbar = () => {
           className="navbar-brand bg-primary col-md-3 col-xl-2 ps-3 fs-3 me-0 link-light"
           to="/groups"
         >
-          <IconWithText text="Chat app" icon="chat-dots" />
+          <IconWithText text="Collab app" icon="chat-dots" />
         </Link>
         <div className="w-100 d-flex align-items-center my-1">
           {group?._id && <GroupNavBar group={group} />}
